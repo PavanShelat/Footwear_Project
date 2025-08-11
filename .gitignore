@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Django migration files
+*/migrations/
+
+# Database
+*.sqlite3
+
+# VSCode
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Env files
+.env
+
+# Logs
+*.log
+
+# Static files cache
+staticfiles/
+
+# Media uploads (optional, if you want to exclude uploads)
+media/
