@@ -1,0 +1,71 @@
+{% extends "header.html" %}
+{% load static %}
+<html>
+{% block content %}
+     
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Change Password</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+ 
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="contact-wrap">
+                    {% if msg %}
+                    <div class="alert alert-success" role="alert">
+                        {{msg}}
+                     </div>
+                    {% endif %}
+                    <h3>Change Password</h3>
+                    <form method="post" action="{% url 'cpass' %}" class="contact-form">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="opassword">Old-Password</label>
+                                    <input type="password" name="opassword" id="opassword" class="form-control" placeholder="Your Old-Password">
+                                </div>
+                            </div>
+                
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="npassword">New-Password</label>
+                                    <input type="Password" name="npassword" id="npassword" class="form-control" placeholder="Your New Password">
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="cnpassword">Confirm New-Password</label>
+                                    <input type="Password" name="cnpassword" id="cnpassword" class="form-control" placeholder="Confirm Password">
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Update Password" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>		
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ {% endblock %}
+ </html>
+ 
+ 

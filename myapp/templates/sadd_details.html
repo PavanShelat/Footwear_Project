@@ -1,0 +1,121 @@
+{% extends "sheader.html" %}
+{% load static %}
+<html>
+{% block content %}
+     
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Signup</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+ 
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="contact-wrap">
+                    {% if msg %}
+                    <div class="alert alert-success" role="alert">
+                        {{msg}}
+                     </div>
+                    {% endif %}
+                    <h3>Add Product</h3>
+                    <form method="post" action="{% url 'sadd_details' %}" class="contact-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control" name="gen" id="">
+                                        <option value="" selected disabled>----Choose Gender----</option>
+                                        <option value="Male">Men</option>
+                                        <option value="Female">Women</option>
+                                        <option value="Kids">Kids</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Categories">Categories</label>
+                                    <select class="form-control" name="cat" id="">
+                                        <option value="" selected disabled>-----Choose Categories------</option>
+                                        <option value="Casual">Casual-Shoes</option>
+                                        <option value="Sports">Sports-Shoes</option>
+                                        <option value="Sneakers">Sneakers</option>
+                                        <option value="Flip-Flops">Flip-Flops</option>
+                                        <option value="Party">Party-Wear</option>
+                                        <option value="Crocs">Crocs</option>
+                                        <option value="Sandals">Sandals</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="Size">Size</label>
+                                    <select class="form-control" name="sz" id="">
+                                        <option value="" selected disabled>----Choose Size----</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="bname">Brand-Name</label>
+                                    <input type="text" name="bname" id="bname" class="form-control" placeholder="Product Brand">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="pname">Name</label>
+                                    <input type="text" name="pname" id="pname" class="form-control" placeholder="Product Name">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="number" name="price" id="price" class="form-control" placeholder="Product Price">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="desc">Description</label>
+                                    <textarea name="desc" rows="4" id="desc" class="form-control" placeholder="Product Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="pimage">Product Image</label>
+                                    <input type="file" name="pimage" id="pimage" class="form-control">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Submit" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>		
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ {% endblock %}
+ </html>
+ 
+ 

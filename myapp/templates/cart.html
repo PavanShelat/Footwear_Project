@@ -1,0 +1,193 @@
+{% extends "header.html" %}
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+{% block content %}
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="bread"><span><a href="index.html">Home</a></span> / <span>Shopping Cart</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="colorlib-product">
+    <div class="container">
+        <div class="row row-pb-lg">
+            <div class="col-md-10 offset-md-1">
+                <div class="process-wrap">
+                    <div class="process text-center active">
+                        <p><span>01</span></p>
+                        <h3>Shopping Cart</h3>
+                    </div>
+                    <div class="process text-center">
+                        <p><span>02</span></p>
+                        <h3>Checkout</h3>
+                    </div>
+                    <div class="process text-center">
+                        <p><span>03</span></p>
+                        <h3>Order Complete</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row row-pb-lg">
+            <div class="col-md-12">
+                <div class="product-name d-flex">
+                    <div class="one-forth text-left px-4">
+                        <span>Product Details</span>
+                    </div>
+                    <div class="one-eight text-center">
+                        <span>Price</span>
+                    </div>
+                    <div class="one-eight text-center">
+                        <span>Quantity</span>
+                    </div>
+                    <div class="one-eight text-center">
+                        <span>Total</span>
+                    </div>
+                    <div class="one-eight text-center px-4">
+                        <span>Remove</span>
+                    </div>
+                </div>
+                {% for i in cart %}
+                <div class="product-cart d-flex">
+                    <div class="one-forth">
+                        <div class="product-img" style="background-image: url({{ i.product.pimage.url }});">
+                        </div>
+                        <div class="display-tc">
+                            <h3>{{ i.product.pname }}</h3>
+                        </div>
+                    </div>
+                    <div class="one-eight text-center">
+                        <div class="display-tc">
+                            <span class="price">{{ i.product.price }}</span>
+                        </div>
+                    </div>
+                    <form method="post" action="{% url 'changeqty' pk=i.pk %}">
+                        {% csrf_token %}
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <input type="number" name="qty" class="form-control input-number text-center" value="{{ i.qty }}" min="1" max="100" onblur="this.form.submit()">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="one-eight text-center">
+                        <div class="display-tc">
+                            <span class="price">{{ i.roundtotal }}</span>
+                        </div>
+                    </div>
+                    <div class="one-eight text-center">
+                        <div class="display-tc">
+                            <a href="{% url 'dcart' pk=i.product.pk %}" class="closed"></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+<div class="total-wrap">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3 text-center ms-3">
+            <div class="total">
+                <div class="sub">
+                    <p><span>Subtotal:</span> <span class="text-dark">{{ net }}</span></p>
+                </div>
+                <div class="grand-total">
+                    <p><span><strong>Total:</strong></span> <span>{{ net }}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 d-flex justify-content-center">
+            <button id="rzp-button1" class="btn btn-lg btn-success"
+                {% if not order_id or net <= 0 %} disabled {% endif %}>
+                Checkout
+            </button>
+        </div>
+        {% if net <= 0 %}
+                <p style="color:red; margin-top:10px; margin-left:15px;">Your cart is empty. Add products before checkout.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+   var options = {
+    "key": "{{ razorpay_key }}",
+    "amount": "{{ amount }}",  // amount in paise
+    "currency": "INR",
+    "name": "Footwear Store",
+    "description": "Purchase",
+    "order_id": "{{ order_id }}",
+    "handler": function (response) {
+    // Send payment info to backend to verify and clear cart
+    fetch('/payment-success/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',  // pass CSRF token for Django
+        },
+        body: JSON.stringify({
+            payment_id: response.razorpay_payment_id,
+            order_id: response.razorpay_order_id,
+            signature: response.razorpay_signature,
+        }),
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.href = '/orderComplete';  // redirect after success
+        } else {
+            alert('Payment verification failed, contact support.');
+        }
+    })
+    .catch(err => alert('Error in payment verification'));
+},
+    "modal": {
+        "ondismiss": function(){
+            alert("Payment popup closed");
+        }
+    },
+    "method": {
+        "card": true,
+        "netbanking": true,
+        "upi": true,
+        "wallet": true,
+        "emi": true,
+        "paylater": true
+    },
+    "theme": {
+        "color": "#94CA21"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+    if (!this.disabled) {
+        rzp.open();
+    }
+    e.preventDefault();
+}
+</script>
+
+
+
+
+{% endblock %}
+</html>

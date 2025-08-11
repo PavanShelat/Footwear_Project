@@ -1,0 +1,102 @@
+{% extends "header.html" %}
+{% load static %}
+<html>
+{% block content %}
+     
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Signup</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="contact-wrap">
+                    {% if msg %}
+                    <div class="alert alert-success" role="alert">
+                        {{msg}}
+                     </div>
+                    {% endif %}
+                    <h3>Sign-up</h3>
+                    <form method="post" action="{% url 'signup' %}" class="contact-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="form-select" name="usertype" id="">
+                                        <option value="" disabled selected>----Choose User----</option>
+                                        <option value="buyer">Buyer</option>
+                                        <option value="seller">Seller</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fname">First Name</label>
+                                    <input type="text" name="fname" id="fname" class="form-control" placeholder="Your firstname">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="lname">Last Name</label>
+                                    <input type="text" name="lname" id="lname" class="form-control" placeholder="Your lastname">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Your email address">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="mobile">Mobile No.</label>
+                                    <input type="Number" name="mobile" id="mobile" class="form-control" placeholder="Your Mobile Number">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="Password" name="password" id="password" class="form-control" placeholder="Your Password">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="cpassword">Confirm Password</label>
+                                    <input type="Password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="file" name="profile" id="profile" class="form-control">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Sign-up" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>		
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ {% endblock %}
+ </html>
+ 
+ 

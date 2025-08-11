@@ -1,0 +1,64 @@
+{% extends "header.html" %}
+{% load static %}
+<html>
+{% block content %}
+     
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Login</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+ 
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="contact-wrap">
+                    {% if msg %}
+                    <div class="alert alert-success" role="alert">
+                        {{msg}}
+                     </div>
+                    {% endif %}
+                    <h3>Login</h3>
+                    <form method="post" action="{% url 'login' %}" class="contact-form">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Your email address">
+                                </div>
+                            </div>
+                
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="mobile">Password</label>
+                                    <input type="Password" name="password" id="password" class="form-control" placeholder="Your Password">
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Login" class="btn btn-primary">
+                                </div>
+                            </div>
+                            <a href="{% url 'fpass' %}">Forgot Password?</a>
+                        </div>
+                    </form>		
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ {% endblock %}
+ </html>
+ 
+ 

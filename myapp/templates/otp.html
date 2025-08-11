@@ -1,0 +1,55 @@
+{% extends "header.html" %}
+{% load static %}
+<html>
+{% block content %}
+     
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>OTP</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+ 
+    <div id="colorlib-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <div class="contact-wrap">
+                    {% if msg %}
+                    <div class="alert alert-danger" role="alert">
+                        {{msg}}
+                     </div>
+                    {% endif %}
+                    <h3>OTP</h3>
+                    <form method="post" action="{% url 'otp' %}" class="contact-form">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="uotp">Enter OTP</label>
+                                    <input type="number" name="uotp" id="uotp" class="form-control" placeholder="Enter OTP">
+                                </div>
+                            </div>
+                
+                            <div class="w-100"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Submit OTP" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>		
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ {% endblock %}
+ </html>
+ 
+ 

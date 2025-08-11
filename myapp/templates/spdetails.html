@@ -1,0 +1,81 @@
+{% extends 'sheader.html' %}
+ {% load static %}
+{% block content %}
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <p class="bread">
+              <span><a href="index.html">Home</a></span> / <span>Product Details</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% for i in product %}
+    <div class="colorlib-product">
+      <div class="container">
+        <div class="row row-pb-lg product-detail-wrap">
+          <div class="col-sm-8">
+            <div class="item">
+              <div class="product-entry">
+                <img src="{{i.pimage.url}}" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="product-desc">
+              
+              <h3>{{i.pname}}</h3>
+
+              <h5>Price</h5>
+              <p>{{i.price}} Rs.</p>
+
+              <h5>Product Brand</h5>
+              <p>{{i.bname}}</p>  
+
+              <h5>Product Description</h5>
+              <p>{{i.desc}}</p>           
+
+              <div class="size-wrap">
+                <div class="block-26 mb-2">
+                  <h5>Size</h5>
+                  <ul>
+                    <li>
+                      <a href="#">{{i.sz}}</a>
+                    </li>
+                  </ul>
+                </div>
+
+                {% comment %} 
+                <div class="block-26 mb-4">  // Modify it after the exam, change size to number 
+                  <h5>Width</h5>
+                  <ul>
+                    <li>
+                      <a href="#">M</a>
+                    </li>
+                  </ul>
+                </div>
+                {% endcomment %}
+              </div>
+
+              <h5>Category</h5>
+              <p>{{i.cat}}</p>  
+
+              <h5>Gender</h5>
+              <p>{{i.gen}}</p> 
+              
+              <p>
+                <a href="{% url 'spupdate' pk=i.pk %}" class="btn btn-info">Update Product</a>
+              </p>
+              <p>
+                <a href="{% url 'spdelete' pk=i.pk %}" class="btn btn-danger">Remove Product</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endblock %}
+</html>
